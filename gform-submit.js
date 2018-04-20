@@ -4,7 +4,7 @@ $('.gform-submit').on('submit', function(e){
         console.log('asds')
         var error = false;
 
-        if($('#template-contactform-botcheck').val().length > 0){
+        if($('#botcheck').length > 0 && $('#botcheck').val().length > 0){
             window.location = 'https://www.google.com'
         }        
 
