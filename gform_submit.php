@@ -30,10 +30,38 @@ function submit_gf_entry($entry){
 		echo 0;
 	}
 	else{
+		send_notifications($form_id, $entry_id);
 		echo $entry_id;
 	}
 		
 	wp_die();
+
+}
+
+
+// send notifications
+function send_notifications($form_id, $entry_id){
+
+	// Get the array info for our forms and entries
+	// that we need to send notifications for
+
+	$form = RGFormsModel::get_form_meta($form_id);
+	$entry = RGFormsModel::get_lead($entry_id);
+
+	// Loop through all the notifications for the
+	// form so we know which ones to send
+
+	$notification_ids = array();
+
+	foreach($form['notifications'] as $id => $info){
+
+		array_push($notification_ids, $id);
+
+	}
+
+	// Send the notifications
+
+	GFCommon::send_notifications($notification_ids, $form, $entry);
 
 }
 
